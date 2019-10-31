@@ -254,14 +254,22 @@ Answer: edgar.name = "Jason" because  the variable jason was set to edgar, and w
 struct BankAccount {
     var owner: String
     var balance: Double
-    var deposits: Double
+    var deposits: [Double] 
+    var withdraws: [Double]
+    private var startingBalance: Double { didSet {startingBalance = balance}}
 
     mutating func deposit(_ amount: Double) {
         balance += amount
+        deposits.append(balance)
     }
 
     mutating func withdraw(_ amount: Double) {
         balance -= amount
+    }
+    
+    func totalGrowth() -> Double {
+        let growth = balance - startingBalance
+        return growth
     }
 }
 ```
@@ -296,8 +304,46 @@ House Targaryen - Fire and Blood
 
 House Lannister - A Lannister always pays his debts
 ```
+Answer:
+```swift
+func houseWords(house: GameOfThronesHouse) -> String {
+    var words = String()
+    switch house{
+    case .stark :
+        words = "Winter is coming"
+    case .baratheon :
+        words = "Ours is the Fury"
+    case .targaryen :
+        words = "Fire and Blood"
+    case .lannister :
+        words = "A Lannister always pays his debts"
+    }
+    return words
+}
 
+```
 b. Move that function to inside the enum as a method
+Answer:
+```swift
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+    func houseWords(house: GameOfThronesHouse) -> String {
+        var words = String()
+        switch house{
+        case .stark :
+            words = "Winter is coming"
+        case .baratheon :
+            words = "Ours is the Fury"
+        case .targaryen :
+            words = "Fire and Blood"
+        case .lannister :
+            words = "A Lannister always pays his debts"
+        }
+        return words
+    }
+}
+```
 
 ## Question 9
 
