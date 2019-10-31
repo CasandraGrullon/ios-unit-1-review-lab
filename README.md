@@ -37,6 +37,59 @@ Britain is a history of repeated injuries and usurpations, all having in direct 
 establishment of an absolute Tyranny over these States. To prove this, let Facts be submitted to a
 candid world.
 """
+
+//my answer:
+//creating a new string with no punction and replacing new lines with spaces
+func noPunc(old: String) -> String {
+    var new = ""
+    for char in old {
+        if char.isPunctuation {
+            continue
+        } else if char == "\n" {
+            new += " "
+        } else {
+            new += String(char)
+        }
+}
+    return new
+}
+
+var myString = noPunc(old: declarationOfIndependence)
+
+//creating an array of words
+var myArray : [String] = myString.components(separatedBy: " ")
+var fiveOrMore = [String]()
+
+//creating an array of words that contain more than 5 characters
+for word in myArray {
+    if word.count > 5 {
+        fiveOrMore.append(word)
+    }
+}
+
+//creating a dictionary that counts the amount of times they appear
+var dictOfWord = [String : Int]()
+var topCount = 0
+var mostFrequent = String()
+
+for word in fiveOrMore {
+    if let count = dictOfWord[word] {
+        dictOfWord[word] = count + 1
+    } else {
+        dictOfWord[word] = 1
+    }
+}
+
+//looping through dictionary to find the longest word that appears the most
+for (word , count) in dictOfWord {
+    if count > topCount {
+        topCount = count
+        if dictOfWord[word] == topCount {
+            mostFrequent = word
+        }
+    }
+}
+print(mostFrequent)
 ```
 
 ## Question 2
@@ -46,6 +99,27 @@ Make an array that contains all elements that appear more than twice in someRepe
 
 ```swift
 var someRepeatsAgain = [25,11,30,31,50,28,4,37,13,20,24,38,28,14,44,33,7,43,39,35,36,42,1,40,7,14,23,46,21,39,11,42,12,38,41,48,20,23,29,24,50,41,38,23,11,30,50,13,13,16,10,8,3,43,10,20,28,39,24,36,21,13,40,25,37,39,31,4,46,20,38,2,7,11,11,41,45,9,49,31,38,23,41,16,49,29,14,6,6,11,5,39,13,17,43,1,1,15,25]
+
+//my answer:
+var dictOfNum = [Int : Int]()
+var count = 0
+var repeatedNums = [Int]()
+
+for num in someRepeatsAgain {
+    if let count = dictOfNum[num] {
+        dictOfNum[num] = count + 1
+    } else {
+        dictOfNum[num] = 1
+    }
+}
+print(dictOfNum)
+
+for (num , count) in dictOfNum {
+    if count > 2 {
+        repeatedNums.append(num)
+    }
+}
+print(repeatedNums)
 ```
 
 ## Question 3
@@ -115,6 +189,17 @@ Output: [9,3]
 struct Receipt {
   let storeName: String
   let items: [ReceiptItem]
+  
+  //5a
+  func totalCost() -> Double {
+    var total = Double()
+        for item in items {
+              total += item.price
+          }
+          return total
+      }
+  }
+  
 }
 
 struct ReceiptItem {
@@ -124,6 +209,7 @@ struct ReceiptItem {
 ```
 
 a. Given the structs above, add a method to `Receipt` that returns the total cost of all items
+
 
 b. Write a function that takes in an array of `Receipts` and returns an array of `Receipts` that match a given store name
 
@@ -146,7 +232,7 @@ class Giant {
     }
 }
 
-let fred = Giant(name: "Fred", weight: 340.0, homePlanet: "Earth")
+var fred = Giant(name: "Fred", weight: 340.0, homePlanet: "Earth")
 
 fred.name = "Brick"
 fred.weight = 999.2
@@ -160,6 +246,7 @@ let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
 let jason = edgar
 jason.name = "Jason"
 ```
+Answer: edgar.name = "Jason" because  the variable jason was set to edgar, and with classes we can overwrite properties of the original because classes are mutable.
 
 ## Question 7
 
@@ -167,18 +254,20 @@ jason.name = "Jason"
 struct BankAccount {
     var owner: String
     var balance: Double
+    var deposits: Double
 
-    func deposit(_ amount: Double) {
+    mutating func deposit(_ amount: Double) {
         balance += amount
     }
 
-    func withdraw(_ amount: Double) {
+    mutating func withdraw(_ amount: Double) {
         balance -= amount
     }
 }
 ```
 
 a. Explain why the code above doesn't compile, then fix it.
+answer: Structs are not mutable. We will need to add the keyword mutating to the methods inside the struct.
 
 b. Add a property called `deposits` of type `[Double]` that stores all of the deposits made to the bank account
 
