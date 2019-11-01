@@ -166,10 +166,52 @@ let letterValues = [
 
 a. Sort the string below in descending order according the dictionary letterValues
 var codeString = "aldfjaekwjnfaekjnf"
+Answer:
+```swift
+var myDict = letterValues.sorted(by: {$0.value > $1.value})
 
+var codeString = "aldfjaekwjnfaekjnf"
 
+func stringValues(myString: String) -> String {
+ var results = ""
+    for (key, value) in myDict {
+        for char in myString {
+            if key == String(char) {
+                results += key
+            }
+        }
+    }
+    
+    return results
+}
+
+var answer = stringValues(myString: codeString)
+print(answer)
+```
 b. Sort the string below in ascending order according the dictionary letterValues
 var codeStringTwo = "znwemnrfewpiqn"
+Answer:
+```swift
+var myDict = letterValues.sorted(by: {$0.value < $1.value})
+
+var codeStringTwo = "znwemnrfewpiqn"
+
+func stringValues(myString: String) -> String {
+ var results = ""
+    for (key, value) in myDict {
+        for char in myString {
+            if key == String(char) {
+                results += key
+            }
+        }
+    }
+    
+    return results
+}
+
+var answer = stringValues(myString: codeStringTwo)
+print(answer)
+```
 
 
 ## Question 4
