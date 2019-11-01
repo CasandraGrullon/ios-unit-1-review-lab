@@ -349,6 +349,7 @@ enum GameOfThronesHouse: String {
 
 What are the contents of `library1` and `library2`? Explain why.
 
+answer : library1 is an instance of MusicLibray with two tracks : "Michelle" , "Voodoo Child". library2 does not compile because its value library is not anything.
 ```swift
 class MusicLibrary {
     var tracks: [String]
@@ -377,4 +378,28 @@ Make a function that takes in an array of strings and returns an array of string
 Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
 
 Output: ["Alaska", "Dad", "Power"]
+```
+Answer: 
+```swift
+var arr1 = ["Hello", "Alaska", "Dad", "Peace", "Power"]
+
+func newArray(myArray: [String]) -> [String]{
+    var firstRow : Set<Character> = ["q","w","e","r","t","y","u","i","o","p"]
+    var secondRow : Set<Character> = ["a","s","d","f","g","h","j","k","l"]
+    var thirdRow : Set<Character> = ["z","x","c","v","b","n","m"]
+    var results = [String]()
+    
+    for word in myArray {
+        if Set(word.lowercased()).isSubset(of: firstRow) || Set(word.lowercased()).isSubset(of: secondRow) || Set(word.lowercased()).isSubset(of: thirdRow) {
+            results.append(word)
+        }
+    }
+    
+    return results
+}
+
+var oneRow = newArray(myArray: arr1)
+
+print(oneRow)
+
 ```
