@@ -224,6 +224,27 @@ Input: [[2,4,1],[3,0],[9,3]]
 
 Output: [9,3]
 ```
+answer: 
+```swift
+func largestSum(arrs: [[Int]]) -> [Int] {
+    var result = 0
+    var largest = 0
+    var newArr = [Int]()
+    
+    for (index , arr) in arrs.enumerated() {
+        result = arr.reduce(0,+) // 7
+        if result > largest {
+            largest = result
+            newArr = arr
+        }
+    }
+    
+    return newArr
+}
+
+let largest = largestSum(arrs: arrOfarr)
+print(largest)
+```
 
 ## Question 5
 
